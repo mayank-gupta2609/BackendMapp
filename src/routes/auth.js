@@ -5,7 +5,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-var fetchuser = require('../src/middleware/fetchuser');
+var fetchuser = require('../middleware/fetchuser');
 const LikedSongs = require('../models/LikedSongs');
 const History = require('../models/History');
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fetchuser = require('../src/middleware/fetchuser')
+const fetchuser = require('../middleware/fetchuser')
 const { body, validationResult } = require('express-validator')
 const Playlists = require('../models/Playlists');
 const Songs = require('../models/Song');

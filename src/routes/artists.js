@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const fetchuser = require('../src/middleware/fetchuser')
+const fetchuser = require('../middleware/fetchuser')
 const Songs = require('../models/Song');
 const Artists = require('../models/Artist');
-const fetchadmin = require('../src/middleware/fetchadmin');
+const fetchadmin = require('../middleware/fetchadmin');
 const { body, validationResult } = require('express-validator')
 
 router.get('/getartistinfo/:name', async (req, res) => {

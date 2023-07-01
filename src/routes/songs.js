@@ -1,10 +1,10 @@
 const express = require('express');
-const fetchuser = require('../src/middleware/fetchuser');
+const fetchuser = require('../middleware/fetchuser');
 const router = express.Router();
 const Songs = require('../models/Song');
 const Lyrics = require('../models/Lyrics');
 const { body, validationResult } = require('express-validator');
-const fetchadmin = require('../src/middleware/fetchadmin');
+const fetchadmin = require('../middleware/fetchadmin');
 
 router.get('/getallsongs', async (req, res) => {
     try {
