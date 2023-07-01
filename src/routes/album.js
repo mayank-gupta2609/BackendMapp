@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const fetchuser = require('../middleware/fetchuser')
-const Songs = require('../models/Song');
-const Albums = require('../models/Album');
+// const fetchuser = require('../middleware/fetchuser')
+const Songs = require('../Models/Song.js');
+const Albums = require('../Models/Album.js');
 
 router.get('/getalbums/:id', async (req, res) => {
 

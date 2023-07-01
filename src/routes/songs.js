@@ -1,8 +1,8 @@
 const express = require('express');
 const fetchuser = require('../middleware/fetchuser');
 const router = express.Router();
-const Songs = require('../models/Song');
-const Lyrics = require('../models/Lyrics');
+const Songs = require('../Models/Song');
+const Lyrics = require('../Models/Lyrics');
 const { body, validationResult } = require('express-validator');
 const fetchadmin = require('../middleware/fetchadmin');
 

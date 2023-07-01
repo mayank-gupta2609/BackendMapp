@@ -2,3 +2,4 @@ node_modules
 files
 index.zip 
 src/.env
+.vercel

@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const fetchuser = require('../middleware/fetchuser')
 const { body, validationResult } = require('express-validator')
-const Playlists = require('../models/Playlists');
-const Songs = require('../models/Song');
+const Playlists = require('../Models/Playlists.js');
+const Songs = require('../Models/Song.js');
 
 router.get('/getallplaylists/:id', fetchuser, async (req, res) => {
     try {

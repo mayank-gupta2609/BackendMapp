@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const fetchuser = require('../middleware/fetchuser')
-const Songs = require('../models/Song')
-const History = require('../models/History')
+// const fetchuser = require('../middleware/fetchuser')
+const Songs = require('../Models/Song.js')
+const History = require('../Models/History.js')
 
 router.get('/gethistory/:id', async (req, res) => {
     try {

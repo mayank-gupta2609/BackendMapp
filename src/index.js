@@ -28,3 +28,4 @@ app.listen(port, () => {
 })
 
 // exports.api = functions.https.onRequest(app)
+export default app

@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "deploy":"firebase deploy --only functions:api"
+    "deploy": "firebase deploy --only functions:api",
+    "vercel-build": "echo hello"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

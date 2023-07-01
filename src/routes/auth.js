@@ -1,13 +1,13 @@
 const express = require('express');
-const User = require('../Models/User');
-const Admin = require('../models/admin');
+const User = require('../Models/User.js');
+//const Admin = require('../Models/Admin.js');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
-const LikedSongs = require('../models/LikedSongs');
-const History = require('../models/History');
+const LikedSongs = require('../Models/LikedSongs.js');
+const History = require('../Models/History.js');
 
 const JWT_SECRET = 'qcVR1cq#@cadAC#$@QVcawdcRE';
 const JWT_SECRET_ADMIN = '';
@@ -62,47 +62,47 @@ router.post('/adduser', [
   }
 })
 
-router.post('/addadmin', [
-  body('name', 'Enter a valid name').isLength({ min: 3 }),
-  body('email', 'Enter a valid email').isEmail(),
-  body('password', 'Enter valid password').isLength({ min: 5 }),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-  try {
-    let admin = await User.findOne({ email: req.body.email });
+// router.post('/addadmin', [
+//   body('name', 'Enter a valid name').isLength({ min: 3 }),
+//   body('email', 'Enter a valid email').isEmail(),
+//   body('password', 'Enter valid password').isLength({ min: 5 }),
+// ], async (req, res) => {
+//   const errors = validationResult(req);
+//   if (!errors.isEmpty()) {
+//     return res.status(400).json({ errors: errors.array() });
+//   }
+//   try {
+//     let admin = await User.findOne({ email: req.body.email });
 
-    if (admin) {
-      return res.status(400).json({ error: "Admin exists" })
-    }
+//     if (admin) {
+//       return res.status(400).json({ error: "Admin exists" })
+//     }
 
-    const salt = await bcrypt.genSalt(10);
-    const secPass = await bcrypt.hash(req.body.password, salt);
+//     const salt = await bcrypt.genSalt(10);
+//     const secPass = await bcrypt.hash(req.body.password, salt);
 
-    admin = await Admin.create({
-      name: req.body.name,
-      password: secPass,
-      email: req.body.email
-    });
+//     admin = await Admin.create({
+//       name: req.body.name,
+//       password: secPass,
+//       email: req.body.email
+//     });
 
-    const data = {
-      admin: {
-        id: admin.id
-      }
-    }
+//     const data = {
+//       admin: {
+//         id: admin.id
+//       }
+//     }
 
-    const authtoken = jwt.sign(data, JWT_SECRET_ADMIN);
+//     const authtoken = jwt.sign(data, JWT_SECRET_ADMIN);
 
-    res.json({ authtoken })
+//     res.json({ authtoken })
 
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
+//   } catch (error) {
+//     console.error(error.message);
+//     res.status(500).send("Internal Server Error");
 
-  }
-})
+//   }
+// })
 
 router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
@@ -178,47 +178,47 @@ router.post('/getuser', fetchuser, async (req, res) => {
   }
 })
 
-router.post('/adminlogin', [
-  body('email', 'Enter a valid email').isEmail(),
-  body('password', 'Password cannot be blank').exists(),
-], async (req, res) => {
-  let success = false;
-  // If there are errors, return Bad request and the errors
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+// router.post('/adminlogin', [
+//   body('email', 'Enter a valid email').isEmail(),
+//   body('password', 'Password cannot be blank').exists(),
+// ], async (req, res) => {
+//   let success = false;
+//   // If there are errors, return Bad request and the errors
+//   const errors = validationResult(req);
+//   if (!errors.isEmpty()) {
+//     return res.status(400).json({ errors: errors.array() });
+//   }
 
-  const { email, password } = req.body;
-  try {
-    let admin = await Admin.findOne({ email });
-    if (!admin) {
-      success = false
-      return res.status(400).json({ error: "Ye user kaha milega" });
-    }
+//   const { email, password } = req.body;
+//   try {
+//     let admin = await Admin.findOne({ email });
+//     if (!admin) {
+//       success = false
+//       return res.status(400).json({ error: "Ye user kaha milega" });
+//     }
 
-    const passwordCompare = await bcrypt.compare(password, admin.password);
-    if (!passwordCompare) {
-      success = false
-      return res.status(400).json({ success, error: "Ye user kaha milega" });
-    }
+//     const passwordCompare = await bcrypt.compare(password, admin.password);
+//     if (!passwordCompare) {
+//       success = false
+//       return res.status(400).json({ success, error: "Ye user kaha milega" });
+//     }
 
-    const data = {
-      admin: {
-        id: admin.id
-      }
-    }
-    const authtoken = jwt.sign(data, JWT_SECRET_ADMIN);
-    success = true;
-    res.json({ success, authtoken })
+//     const data = {
+//       admin: {
+//         id: admin.id
+//       }
+//     }
+//     const authtoken = jwt.sign(data, JWT_SECRET_ADMIN);
+//     success = true;
+//     res.json({ success, authtoken })
 
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
-  }
+//   } catch (error) {
+//     console.error(error.message);
+//     res.status(500).send("Internal Server Error");
+//   }
 
 
-});
+// });
 
 
 module.exports = router
