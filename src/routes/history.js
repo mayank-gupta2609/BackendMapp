@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const fetchuser = require('../middleware/fetchuser')
+const fetchuser = require('../src/middleware/fetchuser')
 const Songs = require('../models/Song')
 const History = require('../models/History')
 

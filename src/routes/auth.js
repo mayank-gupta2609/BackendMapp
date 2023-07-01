@@ -1,11 +1,11 @@
 const express = require('express');
-const User = require('../models/user');
-const Admin = require('../models/admin'); 
+const User = require('../Models/User');
+const Admin = require('../models/admin');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-var fetchuser = require('../middleware/fetchuser');
+var fetchuser = require('../src/middleware/fetchuser');
 const LikedSongs = require('../models/LikedSongs');
 const History = require('../models/History');
 
@@ -48,12 +48,12 @@ router.post('/adduser', [
     // console.log(h)
     // console.log(l)
 
-    const authtoken = jwt.sign(data, JWT_SECRET );
+    const authtoken = jwt.sign(data, JWT_SECRET);
     console.log(user)
     const response = {
       authtoken: authtoken
     }
-    res.json( response)
+    res.json(response)
 
   } catch (error) {
     console.error(error.message);
@@ -136,7 +136,7 @@ router.post('/login', [
     }
     const authtoken = jwt.sign(data, JWT_SECRET);
     console.log(user);
-    success = true;  
+    success = true;
 
     try {
       // let playlist___ = await Playlists.find({ user: uid })
@@ -144,7 +144,7 @@ router.post('/login', [
       res.json({ success, authtoken })
     } catch (e) {
       // console.log(e)
-      res.json({ success, authtoken})
+      res.json({ success, authtoken })
     }
 
     console.log("success");
@@ -171,7 +171,7 @@ router.post('/getuser', fetchuser, async (req, res) => {
       }
     }
     const authtoken = jwt.sign(data, JWT_SECRET);
-    res.json({ uid: user._id, uname: user.name, success: true, authtoken})
+    res.json({ uid: user._id, uname: user.name, success: true, authtoken })
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -202,7 +202,7 @@ router.post('/adminlogin', [
       success = false
       return res.status(400).json({ success, error: "Ye user kaha milega" });
     }
- 
+
     const data = {
       admin: {
         id: admin.id

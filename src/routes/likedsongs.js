@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const fetchuser = require('../middleware/fetchuser')
+const fetchuser = require('../src/middleware/fetchuser')
 const Songs = require('../models/Song')
 const LikedSongs = require('../models/LikedSongs')
 
@@ -22,19 +22,19 @@ router.get('/getlikedsongs/:id', async (req, res) => {
 })
 
 
-router.post('/checklike/:id', async(req, res)=>{
-    try{
+router.post('/checklike/:id', async (req, res) => {
+    try {
         let aid = req.params.id
         let uid = req.body.uid
         let ls = await LikedSongs.findOne({ uid: uid })
-        if(ls.tracks.includes(aid)){
+        if (ls.tracks.includes(aid)) {
             res.json(true)
-        }   else {
+        } else {
             res.json(false)
         }
         console.log(ls)
- 
-    } catch(err){
+
+    } catch (err) {
         console.log(err)
         res.status(500).send("Something went wrong")
     }
@@ -61,7 +61,7 @@ router.post('/addtolikedsongs/:id', async (req, res) => {
             let s = await Songs.findById(ids[i])
             songs.push(s)
         }
-        res.json({"success":"true"})
+        res.json({ "success": "true" })
     } catch (err) {
         console.log(err)
         res.status(500).json(err)
@@ -80,8 +80,8 @@ router.delete('/deletefromlikedsongs/:id', async (req, res) => {
                 tracks: song._id
             }
         })
-        
-        res.json({"success":"true"})
+
+        res.json({ "success": "true" })
     } catch (err) {
         res.status(500).send("Nothing found")
     }
