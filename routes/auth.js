@@ -1,7 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
-const Admin = require('../models/admin');
-const Playlists = require('../models/Playlists');
+const Admin = require('../models/admin'); 
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
